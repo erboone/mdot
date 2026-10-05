@@ -2,6 +2,8 @@ config/MDTT_rclone_*.cfg
 .env
 .env.donotshare
 
+logs/
+
 ### Defaults below 
 # Byte-compiled / optimized / DLL files
 __pycache__/
