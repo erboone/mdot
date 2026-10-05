@@ -10,14 +10,6 @@ import pendulum
 from airflow.sdk import DAG, task
 from common.transfer_utils import *
 
-ENV_KEYS = [
-    'WORKER_NAME',
-    'SOURCE_ROOT', 
-    'DEST_REMOTE',
-    'DEST_ROOT',
-    'RCLONE_CONFIG_PATH',
-]
-
 DEFAULT_ARGS = {
     "owner": "data-eng",
     "retries": 2,
@@ -27,11 +19,6 @@ DEFAULT_ARGS = {
 
 # Environment Vars
 RCLONE_CFG_PATH = os.environ['RCLONE_CONFIG_PATH']
-
-
-# Literals
-DATA_PATHS_LITERAL = "data_paths" 
-OUTPUT_PATHS_LITERAL = "output_paths"
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +47,7 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
         description="Transfers files from MERSCOPE instrument to NAS storage via rclone",
         default_args=DEFAULT_ARGS,
         schedule="0 2 * * *",
-        start_date=pendulum.datetime(2026, 1, 1, tz="UTC"),
+        start_date=pendulum.datetime(2026, 1, 1, tz="America/Los_Angeles"),
         catchup=False,
         max_active_runs=1,
         tags=["file-transfer", "merscopeToNas"],
