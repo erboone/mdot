@@ -1,0 +1,28 @@
+
+### First key is dag name
+merscopeToNas:
+  ### format
+  # name_of_route:
+  #   queue: name_of_airflow queue # TODO: implement for managing different workers 
+  #   source:
+  #     remote: maize
+  #     root: /mnt/merfishXX/MERSCOPE
+      ### This will appear in rclone as maize:/mnt/merfishXX/MERSCOPE/{pattern}
+  #   dest:
+  #     remote:
+  #     root: /new_data_location
+      ### Leave remote blank for a root that is on the workers local file system
+  honeydew_to_merfish14:
+    source:
+      remote: honeydew
+      root: /analysis_raid
+    dest:
+      remote:
+      root: /mnt/merfish14/MERSCOPE
+  watermelon_to_merfish16:
+    source:
+      remote: watermelon
+      root: /analysis_raid
+    dest:
+      remote:
+      root: /mnt/merfish16/MERSCOPE
