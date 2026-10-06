@@ -55,7 +55,7 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
 
         @task(
             task_id="get_finished_experiments",
-            queue=f"merscopeToNas_{ROUTE_NAME}"
+            # queue=f"merscopeToNas_{ROUTE_NAME}"
         )
         def list_experiments_on_source() -> str:
             import subprocess
@@ -87,7 +87,7 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
 
         @task(
                 task_id=f"parse_paths_of_finished_data",
-                queue=f"merscopeToNas_{ROUTE_NAME}"
+                # queue=f"merscopeToNas_{ROUTE_NAME}"
             )
         def parse_experiment_list(rclone_ls_str):
             """Returns a list of pairs of paths to transfer."""
@@ -122,7 +122,10 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
             return to_transfer_dest  
         
 
-        @task(task_id="rclone_transfer", queue=f"merscopeToNas_{ROUTE_NAME}")
+        @task(
+            task_id="rclone_transfer",
+            # queue=f"merscopeToNas_{ROUTE_NAME}"
+        )
         def transfer_data(path_pair):
             import subprocess
             source_path, dest_path = path_pair.split('$')

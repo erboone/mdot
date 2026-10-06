@@ -168,13 +168,11 @@ services:
 
   airflow-worker:
     <<: *airflow-common
-    command: celery worker -E -q {QUEUE:?pass queue name via inline variable, see docs}
-    container_name: airflow-worker-${QUEUE}
+    command: celery worker
+    container_name: airflow-worker
     env_file: ".env"
     volumes:
       - ${SOURCE_ROOT}:/source
-    profiles:
-      - worker
 
     healthcheck:
       # yamllint disable rule:line-length
