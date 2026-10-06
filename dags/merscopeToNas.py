@@ -156,7 +156,7 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
             if output.returncode == 0: #redundant whihe check=True above. keep in case subprocess logic changes
                 logger.log(logging.INFO, "Adding flag")
                 subprocess.run(
-                    f"echo '{datetime.datetime.now()}' | rclone rcat {source + '/merscopeToNas_FINISHED'} -- config {RCLONE_CFG_PATH}",
+                    f"echo '{datetime.datetime.now()}' | rclone rcat {source + '/merscopeToNas_FINISHED'} --config {RCLONE_CFG_PATH}",
                     capture_output=True, text=True, check=True, shell=True
                 )
             else:
