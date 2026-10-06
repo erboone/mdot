@@ -49,7 +49,7 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
         schedule="0 2 * * *",
         start_date=pendulum.datetime(2026, 1, 1, tz="America/Los_Angeles"),
         catchup=False,
-        max_active_runs=1,
+        max_active_tis_per_dag=2,
         tags=["file-transfer", "merscopeToNas"],
     ) as dag:
 
