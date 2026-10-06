@@ -46,7 +46,7 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
         dag_id=f"merscopeToNas_{ROUTE_NAME}",
         description="Transfers files from MERSCOPE instrument to NAS storage via rclone",
         default_args=DEFAULT_ARGS,
-        schedule="0 2 * * *",
+        schedule=None,
         start_date=pendulum.datetime(2026, 1, 1, tz="America/Los_Angeles"),
         catchup=False,
         tags=["file-transfer", "merscopeToNas"],
