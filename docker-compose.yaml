@@ -168,12 +168,12 @@ services:
 
   airflow-worker:
     <<: *airflow-common
-    command: celery worker
+    command: celery worker -q {QUEUE:?pass queue name via inline variable, see docs}
     env_file: ".env"
     volumes:
       - ${SOURCE_ROOT}:/source
     profiles:
-      - remote-worker
+      - worker
 
     healthcheck:
       # yamllint disable rule:line-length

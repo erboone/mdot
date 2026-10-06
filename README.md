@@ -1,4 +1,5 @@
-# mdtt
+# mdot
+MERFISH data orchestration tool
 Apache Airflow pipeline for automatically shuffling large datasets between hosts in our laboratory.
 
 ## Permissions
@@ -12,5 +13,5 @@ docker compose up -d --build
 
 Start worker
 ```bash
-docker compose up -d --build --profile remote-worker
+QUEUE=<queue_name> docker compose up -d --build --profile worker
 ```
