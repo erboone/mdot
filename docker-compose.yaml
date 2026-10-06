@@ -172,7 +172,7 @@ services:
     command: celery worker
     env_file: ".env"
     volumes:
-      - ${SOURCE_ROOT}:/source
+      - /mnt:/mnt
 
     healthcheck:
       # yamllint disable rule:line-length
