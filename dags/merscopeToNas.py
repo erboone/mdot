@@ -94,8 +94,8 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
             logger.log(logging.INFO, rclone_ls_str)
 
             merlin_finished = re.compile(r".*/MERLIN_FINISHED")
-            data_transfered = re.compile(r"[a-Z0-9]*data.*/.*/merscopeToNas_FINISHED")
-            output_transfered = re.compile(r"[a-Z0-9]*output.*/.*/merscopeToNas_FINISHED")
+            data_transfered = re.compile(r"[A-z0-9]*data.*/.*/merscopeToNas_FINISHED")
+            output_transfered = re.compile(r"[A-z0-9]*output.*/.*/merscopeToNas_FINISHED")
 
             rclone_ls_str_list = [s.strip() for s in rclone_ls_str.split("\n") if s.strip()]
             rclone_ls_str_list_clean = [s.split(None, 1)[1] for s in rclone_ls_str_list]
