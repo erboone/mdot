@@ -49,7 +49,6 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
         schedule="0 2 * * *",
         start_date=pendulum.datetime(2026, 1, 1, tz="America/Los_Angeles"),
         catchup=False,
-        max_active_tis_per_dag=2,
         tags=["file-transfer", "merscopeToNas"],
     ) as dag:
 
@@ -124,6 +123,8 @@ def build_transfer_dag(route, all_cfg:dict): # written this way to turn this int
 
         @task(
             task_id="rclone_transfer",
+            max_active_tis_per_dag=2,
+
             # queue=f"merscopeToNas_{ROUTE_NAME}"
         )
         def transfer_data(path_pair):
