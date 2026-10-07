@@ -19,6 +19,13 @@ merscopeToNas:
     dest:
       remote:
       root: /mnt/merfish14/MERSCOPE
+  honeydew_to_merfish13:
+    source:
+      remote: honeydew
+      root: /analysis_raid
+    dest:
+      remote:
+      root: /mnt/merfish13/MERSCOPE
   watermelon_to_merfish16:
     source:
       remote: watermelon
