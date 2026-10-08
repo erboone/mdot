@@ -26,6 +26,13 @@ merscopeToNas:
     dest:
       remote:
       root: /mnt/merfish13/MERSCOPE
+  cantaloupe_to_merfish15:
+    source:
+      remote: cantaloupe
+      root: /analysis_raid
+    dest:
+      remote:
+      root: /mnt/merfish15/MERSCOPE
   watermelon_to_merfish16:
     source:
       remote: watermelon
@@ -33,3 +40,8 @@ merscopeToNas:
     dest:
       remote:
       root: /mnt/merfish16/MERSCOPE
+bilUpload:
+  source_collection:
+  source_root:
+  dest_collection:
+  dest_root:
