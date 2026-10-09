@@ -42,10 +42,10 @@ with DAG(
         # filt_exp = []
         # for exp in exp_name: # keeping this in case I want to include multiple exp. in the future
         loc = None
-        if Path(f"/mnt/merfish14/MERSCOPE/output/{exp_name}/images/").exists():
-            loc = Path(f"/mnt/merfish14/MERSCOPE/output/{exp_name}/images")
-        elif Path(f"/mnt/merfish16/MERSCOPE/output/{exp_name}/images").exists():
-            loc = Path(f"/mnt/merfish16/MERSCOPE/output/{exp_name}/images/")
+        img_folders = list(Path(f"/mnt/merfish1*/MERSCOPE/output/{exp_name}/").glob("reg*/images"))
+        logger.log(logging.INFO, f"img_folders: {img_folders}")
+        if img_folders:
+            loc = img_folders.pop()
         else:
             logger.log(logging.ERROR, f"Experiment({exp_name}) was not found")
             raise RuntimeError
@@ -61,6 +61,7 @@ with DAG(
             logger.log(logging.ERROR, f"folder {loc} did not pass the mosaic check")
             raise RuntimeError
 
+        logger.log(logging.INFO, path)
         return path # only works on one experiment at a time, this is because we cannot monitor the instruments pipeline easily.
 
 
@@ -90,7 +91,7 @@ with DAG(
         source = path
         dest = f"{HOST}:{HOST_ROOT}/{path.name}/"
         logger.log(logging.INFO, f"source:{source}, dest:{dest}")
-
+        raise NotImplementedError
         raw_cmd = [
             "rclone", "copy",
             source,
@@ -178,11 +179,12 @@ with DAG(
             --config {RCLONE_CFG_PATH}"
 
     path = check_experiments()
-    alter_json_task = alter_json(path)
+    _altered_json = alter_json(path)
     dest = transfer_data(path)
     _removed_flags = remove_flags(dest)
     _waited = wait(dest)
-    transfered = transfer_mosaic_imgs(path)
-    written_flags = write_flags(dest)
+    _transfered = transfer_mosaic_imgs(path)
+    _written_flags = write_flags(dest)
 
-    _removed_flags >> _waited >> transfered >> written_flags
+    _altered_json >> dest
+    _removed_flags >> _waited >> _transfered >> _written_flags
